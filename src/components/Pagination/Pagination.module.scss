@@ -1,0 +1,102 @@
+.wrapper {
+  width: 100%;
+  background-color: #ffffff;
+  box-shadow: 0 1px 2px 0 #c9ced1;
+  border-radius: 4px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 100px;
+}
+
+h1 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* ------------------------------ PAGINTION BEGIN ------------------------------ */
+
+.pager {
+  font-size: 0;
+  text-align: center;
+}
+
+.pagerItem {
+  display: inline-block;
+  vertical-align: top;
+  font-size: 1.125rem;
+  font-weight: bold;
+  margin: 0 2px;
+
+  &.active .pagerLink{
+    background-color: #ffb74d;
+    border-color: #ffb74d;
+    color: #fff;
+    text-decoration: none;
+  }
+}
+
+.pagerPrevIcon svg {
+  width: 8px;
+  height: 12px;
+}
+
+.pagerNextIcon {
+  svg {
+    width: 8px;
+    height: 12px;
+  }
+
+  .pagerLink svg {
+    transform: rotate(180deg);
+    transform-origin: center center;
+  }
+}
+
+.pagerLink {
+  position: relative;
+  border-radius: 4px;
+  display: block;
+  text-align: center;
+  width: 2.625rem;
+  height: 2.625rem;
+  line-height: 2.625rem;
+  margin-left: -1px;
+  color: #2f3640;
+  text-decoration: none;
+  transition: 0.3s;
+
+  &:hover {
+    background-color: #ffb74d;
+    border-color: #ffb74d;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  &:hover svg path, &:active svg path {
+    fill: #fff;
+  }
+}
+
+.pager .pagerItem {
+  .pagerItem .pager__link, &:hover + .pagerItem .pagerLink{
+    border-left-color: #ffb74d;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .pagerItem {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+
+    &:first-of-type, &:last-of-type, &:nth-of-type(2), &:nth-last-of-type(2), {
+      position: initial;
+      top: initial;
+      left: initial;
+    }
+  }
+}
+
+/* ------------------------------ PAGINTION END ------------------------------ */

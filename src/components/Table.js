@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { useStore } from '../utils/useStore';
+import styles from './Table.module.scss';
 
 const Table = () => {
     const { tableStore } = useStore();
@@ -20,7 +21,7 @@ const Table = () => {
     }, [tableStore]);
 
     return (
-        <table>
+        <table className={styles.table}>
             <tr>
                 <th>Title</th>
                 <th>Release date</th>

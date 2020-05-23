@@ -1,18 +1,18 @@
 import { action, flow, observable } from 'mobx';
 import { getPaginatedMovieList } from '../utils/api-service';
 
-const DEFAULT_PARAMS = {
-    page: 1,
-    limit: 30,
-};
-
 export class TableStore {
+    DEFAULT_PARAMS = {
+        page: 1,
+        limit: 30,
+    }
+
     @observable moviesList = [];
     @observable allMoviesCount = 0;
     @observable isLoadingTableData = false;
     @observable tableError = null;
 
-    *_getPaginatedMovieList (params = DEFAULT_PARAMS) {
+    *_getPaginatedMovieList (params = this.DEFAULT_PARAMS) {
         this.setLoadingTableData(true);
 
         try {
