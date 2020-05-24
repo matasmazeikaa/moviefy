@@ -8,13 +8,20 @@ import Loader from './Common/Loader';
 import styles from './Table.module.scss';
 
 const Table = ({ paginationStore, tableStore }) => {
-    const { moviesList, isSelectedMovieModalVisible, selectedMovieData, isLoadingTableData, isInfiniteListEnabled } = tableStore;
+    const {
+        moviesList,
+        isSelectedMovieModalVisible,
+        selectedMovieData,
+        isLoadingTableData,
+        isInfiniteListEnabled,
+        lastClickedRowIndex,
+    } = tableStore;
 
     const setSelectedMovieModalVisible = useCallback((value) => () => tableStore.setSelectedMovieModalVisible(value), [tableStore]);
 
     const handleMovieSelection = useCallback(
-        (movieData) => () => {
-            tableStore.setSelectedMovieData(movieData);
+        (movieData, index) => () => {
+            tableStore.setSelectedMovieData(movieData, index);
             tableStore.setSelectedMovieModalVisible(true);
         },
         [tableStore],
@@ -46,8 +53,9 @@ const Table = ({ paginationStore, tableStore }) => {
                 rottenTomatoesRating: movie.rotten_tomatoes_rating,
                 imdbRating: movie.imdb_rating,
                 imdbVotes: movie.imdb_votes,
-            })}
+            }, index)}
             title={movie.title}
+            isLastClicked={lastClickedRowIndex === index}
         />
     );
 
@@ -83,7 +91,7 @@ const Table = ({ paginationStore, tableStore }) => {
                     imdbRating={selectedMovieData.imdbRating}
                     imdbVotes={selectedMovieData.imdbVotes}
                     title={selectedMovieData.title}
-                    releaseData={selectedMovieData.rottenTomatoesRating}
+                    rottenTomatoesRating={selectedMovieData.rottenTomatoesRating}
                     onModalClose={setSelectedMovieModalVisible(false)}
                 />
             )}

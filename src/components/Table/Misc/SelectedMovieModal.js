@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import styles from './SelectedMovieModal.module.scss';
 
-const SelectedMovieModal = ({ title, releaseData, imdbRating, imdbVotes, onModalClose }) => (
+const SelectedMovieModal = ({ title, rottenTomatoesRating, imdbRating, imdbVotes, onModalClose }) => (
     <div id='myModal' className={styles.modal}>
         <div className={styles.modalContent}>
             <span className={styles.close} onClick={onModalClose}>
@@ -16,7 +16,7 @@ const SelectedMovieModal = ({ title, releaseData, imdbRating, imdbVotes, onModal
                 </div>
                 <div>
                     <span>Rotten Tomatoes rating: </span>
-                    <span>{releaseData ? releaseData : '-'}</span>
+                    <span>{rottenTomatoesRating ? rottenTomatoesRating : '-'}</span>
                 </div>
                 <div>
                     <span>IMDB rating: </span>
@@ -33,9 +33,9 @@ const SelectedMovieModal = ({ title, releaseData, imdbRating, imdbVotes, onModal
 
 SelectedMovieModal.propTypes = {
     title: PropTypes.string.isRequired,
-    releaseData: PropTypes.string.isRequired,
-    imdbRating: PropTypes.string.isRequired,
-    imdbVotes: PropTypes.number.isRequired,
+    rottenTomatoesRating: PropTypes.number,
+    imdbRating: PropTypes.number,
+    imdbVotes: PropTypes.number,
     onModalClose: PropTypes.func.isRequired,
 };
 
