@@ -39,8 +39,9 @@ const Table = () => {
         return () => window.removeEventListener('scroll', handlePageScroll);
     });
 
-    const renderRow = (movie) => (
+    const renderRow = (movie, index) => (
         <Row
+            key={index}
             imdb_rating={movie.imdb_rating}
             rotten_tomatoes_rating={movie.rotten_tomatoes_rating}
             imdb_votes={movie.imdb_votes}
@@ -54,9 +55,9 @@ const Table = () => {
         />
     );
 
-    const renderPaginatedMovieList = () => tableStore.paginatedMovieList.map((movie) => movie && renderRow(movie));
+    const renderPaginatedMovieList = () => tableStore.paginatedMovieList.map((movie, index) => movie && renderRow(movie, index));
 
-    const renderInfiniteMovieList = () => moviesList.map((movie) => movie && renderRow(movie));
+    const renderInfiniteMovieList = () => moviesList.map((movie, index) => movie && renderRow(movie, index));
 
     useEffect(() => {
         tableStore.getPaginatedMovieList();

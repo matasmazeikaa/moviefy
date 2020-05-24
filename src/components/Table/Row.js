@@ -13,9 +13,9 @@ const Row = ({ handleMovieSelection, title, rotten_tomatoes_rating, imdb_rating,
 Row.propTypes = {
     handleMovieSelection: PropTypes.func.isRequired,
     title: PropTypes.string.isRequired,
-    rotten_tomatoes_rating: PropTypes.string.isRequired,
-    imdb_rating: PropTypes.string.isRequired,
-    imdb_votes: PropTypes.string.isRequired,
+    rotten_tomatoes_rating: PropTypes.number,
+    imdb_rating: PropTypes.number,
+    imdb_votes: PropTypes.number,
 };
 
 export default Row;
