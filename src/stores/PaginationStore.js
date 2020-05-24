@@ -1,9 +1,6 @@
 import { observable, action, computed } from 'mobx';
+import { DEFAULT_PARAMS } from './TableStore';
 
-const DEFAULT_PAGINATION = {
-    limit: 10,
-    page: 1,
-};
 const DEFAULT_PAGES = [1, 2, 3];
 
 export class PaginationStore {
@@ -11,9 +8,9 @@ export class PaginationStore {
         this.tableStore = tableStore;
     }
 
-    @observable currentPage = DEFAULT_PAGINATION.page;
+    @observable currentPage = DEFAULT_PARAMS.page;
     @observable visiblePageSelections = DEFAULT_PAGES;
-    @observable moviesPerPage = DEFAULT_PAGINATION.limit;
+    @observable moviesPerPage = DEFAULT_PARAMS.limit;
 
     @computed get totalPages () {
         return Math.round(this.tableStore.allMoviesCount / this.moviesPerPage);

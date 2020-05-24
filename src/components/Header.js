@@ -22,6 +22,6 @@ const Header = ({ tableStore }) => {
 
 Header.propTypes = {
     tableStore: PropTypes.object.isRequired,
-}
+};
 
 export default observer(Header);

@@ -1,14 +1,14 @@
 import { action, computed, flow, observable } from 'mobx';
 import { getPaginatedMovieList } from '../utils/api-service';
 
-export class TableStore {
-    DEFAULT_PARAMS = {
-        page: 1,
-        limit: 10,
-        order: 'asc',
-        sort_by: 'title',
-    };
+export const DEFAULT_PARAMS = {
+    page: 1,
+    limit: 10,
+    order: 'asc',
+    sort_by: 'title',
+};
 
+export class TableStore {
     @observable moviesList = [];
     @observable paginatedMoveList = [];
     @observable allMoviesCount = 0;
@@ -18,7 +18,7 @@ export class TableStore {
         imdbRating: null,
         imdbVotes: null,
     };
-    @observable filterParams = this.DEFAULT_PARAMS;
+    @observable filterParams = DEFAULT_PARAMS;
     @observable loadedPages = [];
 
     @observable isLoadingTableData = false;
@@ -29,14 +29,14 @@ export class TableStore {
 
     @observable tableError = null;
 
-    @computed get paginatedMovieList () {
+    @computed get paginatedMovieList() {
         const startIndex = (this.filterParams.page - 1) * this.filterParams.limit;
         const endIndex = this.filterParams.page * this.filterParams.limit;
 
         return this.moviesList.slice(startIndex, endIndex);
     }
 
-    *_getPaginatedMovieList () {
+    *_getPaginatedMovieList() {
         if (this.loadedPages.includes(this.filterParams.page)) {
             return;
         }
@@ -62,28 +62,28 @@ export class TableStore {
     }
     getPaginatedMovieList = flow(this._getPaginatedMovieList);
 
-    @action setMoviesList (data) {
+    @action setMoviesList(data) {
         const startIndex = (this.filterParams.page - 1) * this.filterParams.limit;
 
         this.moviesList.splice(startIndex, data.length, ...data);
     }
 
-    @action setCurrentFilterParams (filterParams) {
+    @action setCurrentFilterParams(filterParams) {
         this.filterParams = { ...this.filterParams, ...filterParams };
     }
 
-    @action changeOrderDirection () {
+    @action changeOrderDirection() {
         this.filterParams.order = this.filterParams.order === 'asc' ? 'desc' : 'asc';
         this.resetMovieListAndGetMovies();
     }
 
-    @action changeSortBy (sortBy) {
+    @action changeSortBy(sortBy) {
         this.filterParams.sort_by = sortBy;
         this.filterParams.order = 'asc';
         this.resetMovieListAndGetMovies();
     }
 
-    @action resetMovieListAndGetMovies () {
+    @action resetMovieListAndGetMovies() {
         this.moviesList = [];
         this.loadedPages = [];
         this.isFirstLoad = true;
@@ -91,27 +91,27 @@ export class TableStore {
         this.getPaginatedMovieList();
     }
 
-    @action setAllMoviesCount (count) {
+    @action setAllMoviesCount(count) {
         this.allMoviesCount = count;
     }
 
-    @action setLoadingTableData (value) {
+    @action setLoadingTableData(value) {
         this.isLoadingTableData = value;
     }
 
-    @action setSelectedMovieData (data) {
+    @action setSelectedMovieData(data) {
         this.selectedMovieData = data;
     }
 
-    @action setSelectedMovieModalVisible (value) {
+    @action setSelectedMovieModalVisible(value) {
         this.isSelectedMovieModalVisible = value;
     }
 
-    @action.bound toggleInfiniteList () {
+    @action.bound toggleInfiniteList() {
         this.isInfiniteListEnabled = !this.isInfiniteListEnabled;
     }
 
-    @action setTableError (error) {
+    @action setTableError(error) {
         this.tableError = error;
     }
 }
