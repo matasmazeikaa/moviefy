@@ -1,7 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import Table from './components/Table';
-import Pagination from './components/Pagination/Pagination';
+import Pagination from './components/Pagination';
 import styles from './App.module.scss';
 import Header from './components/Header';
 

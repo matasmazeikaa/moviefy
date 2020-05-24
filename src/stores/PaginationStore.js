@@ -24,6 +24,10 @@ export class PaginationStore {
     }
 
     @action setPage (page) {
+        if (page > this.totalPages) {
+            return;
+        }
+
         const params = {
             page,
             limit: this.moviesPerPage,

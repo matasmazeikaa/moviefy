@@ -14,7 +14,7 @@ export class TableStore {
     @observable allMoviesCount = 0;
     @observable selectedMovieData = {
         title: '',
-        releaseDate: '',
+        rottenTomatoesRating: '',
         imdbRating: null,
         imdbVotes: null,
     };
@@ -32,9 +32,7 @@ export class TableStore {
     @computed get paginatedMovieList () {
         const startIndex = (this.filterParams.page - 1) * this.filterParams.limit;
         const endIndex = this.filterParams.page * this.filterParams.limit;
-        console.log(startIndex, endIndex);
 
-        console.log(this.moviesList);
         return this.moviesList.slice(startIndex, endIndex);
     }
 
@@ -110,10 +108,6 @@ export class TableStore {
     }
 
     @action.bound toggleInfiniteList () {
-        // if (!this.isInfiniteListEnabled) {
-        //     this.setCurrentFilterParams({ limit: 30, page: 1 });
-        // }
-
         this.isInfiniteListEnabled = !this.isInfiniteListEnabled;
     }
 

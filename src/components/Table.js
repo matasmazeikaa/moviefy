@@ -42,11 +42,11 @@ const Table = () => {
     const renderRow = (movie) => (
         <Row
             imdb_rating={movie.imdb_rating}
-            release_date={movie.release_date}
+            rotten_tomatoes_rating={movie.rotten_tomatoes_rating}
             imdb_votes={movie.imdb_votes}
             handleMovieSelection={handleMovieSelection({
                 title: movie.title,
-                releaseDate: movie.release_date,
+                rottenTomatoesRating: movie.rotten_tomatoes_rating,
                 imdbRating: movie.imdb_rating,
                 imdbVotes: movie.imdb_votes,
             })}
@@ -62,12 +62,11 @@ const Table = () => {
         tableStore.getPaginatedMovieList();
     }, [tableStore]);
 
-    console.log(tableStore.paginatedMovieList);
     return (
         <>
             <div className={styles.tableContainer}>
                 <table className={styles.table} cellSpacing='0' cellPadding='0'>
-                    <TableHeader tableStore={tableStore} />
+                    <TableHeader tableStore={tableStore} paginationStore={paginationStore}/>
                     <tbody>{!isInfiniteListEnabled ? renderPaginatedMovieList() : renderInfiniteMovieList()}</tbody>
                 </table>
                 {isLoadingTableData && <Loader className={styles.spinnerPositionDefault} />}
@@ -77,7 +76,7 @@ const Table = () => {
                     imdbRating={selectedMovieData.imdbRating}
                     imdbVotes={selectedMovieData.imdbVotes}
                     title={selectedMovieData.title}
-                    releaseData={selectedMovieData.releaseDate}
+                    releaseData={selectedMovieData.rottenTomatoesRating}
                     onModalClose={setSelectedMovieModalVisible(false)}
                 />
             )}

@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { observer } from 'mobx-react';
 import cx from 'classnames';
-import { useStore } from '../../utils/useStore';
+import { useStore } from '../utils/useStore';
 import styles from './Pagination.module.scss';
 
 const Pagination = () => {
@@ -31,7 +31,7 @@ const Pagination = () => {
         );
 
     const renderGoToLastPageButton = () =>
-        currentPage !== paginationStore.totalPages && (
+        currentPage < paginationStore.totalPages - 1 && (
             <li className={styles.pagerItem} onClick={setPage(paginationStore.totalPages)}>
                 <a className={styles.pagerLink} href='#'>
                     ...

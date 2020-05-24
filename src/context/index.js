@@ -1,6 +1,6 @@
 import { createContext } from 'react';
-import { TableStore } from '../components/TableStore';
-import { PaginationStore } from '../components/Pagination/PaginationStore';
+import { TableStore } from '../stores/TableStore';
+import { PaginationStore } from '../stores/PaginationStore';
 
 const tableStore = new TableStore();
 const paginationStore = new PaginationStore(tableStore);

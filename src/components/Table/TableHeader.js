@@ -3,10 +3,13 @@ import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import styles from './TableHeader.module.scss';
 
-const TableHeader = ({ tableStore }) => {
+const TableHeader = ({ tableStore, paginationStore }) => {
     const { filterParams } = tableStore;
+
     const handleSort = useCallback(
         (sortBy) => () => {
+            paginationStore.resetPages();
+
             if (filterParams.sort_by === sortBy) {
                 tableStore.changeOrderDirection();
 
@@ -15,7 +18,7 @@ const TableHeader = ({ tableStore }) => {
 
             tableStore.changeSortBy(sortBy);
         },
-        [filterParams.sort_by, tableStore],
+        [filterParams.sort_by, paginationStore, tableStore],
     );
 
     return (
@@ -30,11 +33,11 @@ const TableHeader = ({ tableStore }) => {
                     Title
                 </th>
                 <th
-                    id='release_date'
-                    onClick={handleSort('release_date')}
-                    className={filterParams.sort_by === 'release_date' && styles[filterParams.order]}
+                    id='rotten_tomatoes_rating'
+                    onClick={handleSort('rotten_tomatoes_rating')}
+                    className={filterParams.sort_by === 'rotten_tomatoes_rating' && styles[filterParams.order]}
                 >
-                    Release date
+                    Rottent Tomatoes rating
                 </th>
                 <th
                     id='imdb_rating'
@@ -57,6 +60,7 @@ const TableHeader = ({ tableStore }) => {
 
 TableHeader.propTypes = {
     tableStore: PropTypes.object.isRequired,
+    paginationStore: PropTypes.object.isRequired,
 };
 
 export default observer(TableHeader);
