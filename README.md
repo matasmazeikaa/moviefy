@@ -1,8 +1,8 @@
 ## Moviefy!
 
-Movie rating list made by Matas Mažeika
-React x Mobx
-Demo can be found here: https://moviefy-mazeika.herokuapp.com/
+Movie rating list made by Matas Mažeika \
+React x Mobx \
+Demo can be found here: https://moviefy-mazeika.herokuapp.com/ \
 
 # Local setup
 
