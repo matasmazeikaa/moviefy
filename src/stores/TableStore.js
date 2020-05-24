@@ -74,7 +74,6 @@ export class TableStore {
 
     @action changeOrderDirection () {
         this.filterParams.order = this.filterParams.order === 'asc' ? 'desc' : 'asc';
-        this.filterParams.page = 1;
         this.resetMovieListAndGetMovies();
     }
 
@@ -88,6 +87,7 @@ export class TableStore {
         this.moviesList = [];
         this.loadedPages = [];
         this.isFirstLoad = true;
+        this.filterParams.page = 1;
         this.getPaginatedMovieList();
     }
 

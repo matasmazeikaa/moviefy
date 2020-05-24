@@ -1,20 +1,11 @@
-import React, { useCallback } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
-import { useStore } from '../utils/useStore';
 import styles from './Header.module.scss';
 import moviefyIcon from '../assets/icon-moviefy.svg';
 
-const Header = () => {
-    const { tableStore, paginationStore } = useStore();
+const Header = ({ tableStore }) => {
     const { isInfiniteListEnabled } = tableStore;
-
-    const handleInfiniteList = useCallback(() => {
-        if (tableStore.loadedPages.length === 1) {
-            paginationStore.setNextPage();
-        }
-
-        tableStore.toggleInfiniteList();
-    }, [paginationStore, tableStore]);
 
     return (
         <div className={styles.headerContainer}>
@@ -22,11 +13,15 @@ const Header = () => {
             <span>Moviefy</span>
             <label className={styles.checkboxContainer}>
                 Enable infinite list
-                <input type='checkbox' checked={isInfiniteListEnabled} onChange={handleInfiniteList} />
+                <input type='checkbox' checked={isInfiniteListEnabled} onChange={tableStore.toggleInfiniteList} />
                 <span className={styles.checkmark} />
             </label>
         </div>
     );
 };
+
+Header.propTypes = {
+    tableStore: PropTypes.object.isRequired,
+}
 
 export default observer(Header);

@@ -4,13 +4,18 @@ import Table from './components/Table';
 import Pagination from './components/Pagination';
 import styles from './App.module.scss';
 import Header from './components/Header';
+import { useStore } from './utils/useStore';
 
-const App = () => (
-    <div className={styles.rootContainer}>
-        <Header />
-        <Table />
-        <Pagination />
-    </div>
-);
+const App = () => {
+    const { tableStore, paginationStore } = useStore();
+
+    return (
+        <div className={styles.rootContainer}>
+            <Header tableStore={tableStore}/>
+            <Table tableStore={tableStore} paginationStore={paginationStore}/>
+            <Pagination tableStore={tableStore} paginationStore={paginationStore}/>
+        </div>
+    );
+};
 
 export default observer(App);

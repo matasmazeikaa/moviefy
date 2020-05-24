@@ -15,7 +15,7 @@ const SelectedMovieModal = ({ title, releaseData, imdbRating, imdbVotes, onModal
                     <span>{title ? title : '-'}</span>
                 </div>
                 <div>
-                    <span>Rottent Tomatoes rating: </span>
+                    <span>Rotten Tomatoes rating: </span>
                     <span>{releaseData ? releaseData : '-'}</span>
                 </div>
                 <div>

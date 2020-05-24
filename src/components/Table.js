@@ -1,14 +1,13 @@
 import React, { useCallback, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
-import { useStore } from '../utils/useStore';
-import styles from './Table.module.scss';
 import SelectedMovieModal from './Table/Misc/SelectedMovieModal';
-import Loader from './Common/Loader';
 import TableHeader from './Table/TableHeader';
 import Row from './Table/Row';
+import Loader from './Common/Loader';
+import styles from './Table.module.scss';
 
-const Table = () => {
-    const { tableStore, paginationStore } = useStore();
+const Table = ({ paginationStore, tableStore }) => {
     const { moviesList, isSelectedMovieModalVisible, selectedMovieData, isLoadingTableData, isInfiniteListEnabled } = tableStore;
 
     const setSelectedMovieModalVisible = useCallback((value) => () => tableStore.setSelectedMovieModalVisible(value), [tableStore]);
@@ -21,23 +20,20 @@ const Table = () => {
         [tableStore],
     );
 
-    const handlePageScroll = (event) => {
-        const {
-            target: { scrollingElement },
-        } = event;
-        const NEAR_BOTTOM_THRESHOLD = 300;
-        const isNearBottom = scrollingElement.scrollHeight - NEAR_BOTTOM_THRESHOLD < scrollingElement.scrollTop + window.innerHeight;
+    const handlePageScroll = useCallback(
+        (event) => {
+            const {
+                target: { scrollingElement },
+            } = event;
+            const NEAR_BOTTOM_THRESHOLD = 300;
+            const isNearBottom = scrollingElement.scrollHeight - NEAR_BOTTOM_THRESHOLD < scrollingElement.scrollTop + window.innerHeight;
 
-        if (isNearBottom && isInfiniteListEnabled) {
-            paginationStore.setNextPage();
-        }
-    };
-
-    useEffect(() => {
-        window.addEventListener('scroll', handlePageScroll);
-
-        return () => window.removeEventListener('scroll', handlePageScroll);
-    });
+            if (isNearBottom && isInfiniteListEnabled) {
+                paginationStore.setNextPage();
+            }
+        },
+        [isInfiniteListEnabled, paginationStore],
+    );
 
     const renderRow = (movie, index) => (
         <Row
@@ -60,6 +56,16 @@ const Table = () => {
     const renderInfiniteMovieList = () => moviesList.map((movie, index) => movie && renderRow(movie, index));
 
     useEffect(() => {
+        if (isInfiniteListEnabled && tableStore.loadedPages.length === 1) {
+            paginationStore.setNextPage();
+        }
+
+        window.addEventListener('scroll', handlePageScroll);
+
+        return () => window.removeEventListener('scroll', handlePageScroll);
+    }, [handlePageScroll, isInfiniteListEnabled, paginationStore, tableStore.loadedPages.length]);
+
+    useEffect(() => {
         tableStore.getPaginatedMovieList();
     }, [tableStore]);
 
@@ -67,10 +73,10 @@ const Table = () => {
         <>
             <div className={styles.tableContainer}>
                 <table className={styles.table} cellSpacing='0' cellPadding='0'>
-                    <TableHeader tableStore={tableStore} paginationStore={paginationStore}/>
+                    <TableHeader tableStore={tableStore} paginationStore={paginationStore} />
                     <tbody>{!isInfiniteListEnabled ? renderPaginatedMovieList() : renderInfiniteMovieList()}</tbody>
                 </table>
-                {isLoadingTableData && <Loader className={styles.spinnerPositionDefault} />}
+                {isLoadingTableData && <Loader />}
             </div>
             {isSelectedMovieModalVisible && (
                 <SelectedMovieModal
@@ -83,6 +89,11 @@ const Table = () => {
             )}
         </>
     );
+};
+
+Table.propTypes = {
+    tableStore: PropTypes.object.isRequired,
+    paginationStore: PropTypes.object.isRequired,
 };
 
 export default observer(Table);

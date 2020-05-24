@@ -12,12 +12,6 @@
   align-items: center;
 }
 
-h1 {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
 .pager {
   font-size: 0;
   text-align: center;
@@ -77,22 +71,5 @@ h1 {
     border-color: $main-hover-color;
     color: #fff;
     text-decoration: none;
-  }
-
-  @media screen and (max-width: 576px) {
-    .pagerItem {
-      position: absolute;
-      top: -9999px;
-      left: -9999px;
-
-      &:first-of-type,
-      &:last-of-type,
-      &:nth-of-type(2),
-      &:nth-last-of-type(2) {
-        position: initial;
-        top: initial;
-        left: initial;
-      }
-    }
   }
 }
