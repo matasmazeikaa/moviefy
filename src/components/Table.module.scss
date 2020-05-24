@@ -1,13 +1,57 @@
-.table {
-  color: #ffffff;
-  background-color: #242423;
-  border-radius: 8px;
-  padding: 20px;
-  text-align: left;
+@import '../variables';
 
-  tr {
-    th, td {
-      padding: 15px;
+.tableContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+
+  .table {
+    color: #ffffff;
+    background-color: $secondary-color;
+    border-radius: 8px;
+    text-align: left;
+    border: none;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+
+    tr {
+      th,
+      td {
+        transition: background-color 0.2s ease-in;
+        padding: 15px 0;
+        border: none;
+        cursor: pointer;
+
+        &:first-child {
+          padding-left: 30px;
+        }
+
+        &:last-child {
+          padding-right: 30px;
+        }
+      }
+
+      &:first-child {
+        border-radius: 0 0 8px 8px;
+      }
+    }
+
+    th {
+      background-color: #303960;
+      position: relative;
+    }
+
+    tr:hover {
+      td {
+        background-color: $main-hover-color;
+      }
     }
   }
+}
+
+.spinnerPositionDefault {
+  position: initial !important;
 }

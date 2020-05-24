@@ -1,7 +1,7 @@
 import { observable, action, computed } from 'mobx';
 
 const DEFAULT_PAGINATION = {
-    limit: 30,
+    limit: 10,
     page: 1,
 };
 const DEFAULT_PAGES = [1, 2, 3];
@@ -45,8 +45,14 @@ export class PaginationStore {
             this.visiblePageSelections = [this.totalPages - 2, this.totalPages - 1, this.totalPages];
         }
 
-        this.tableStore.getPaginatedMovieList(params);
+        this.tableStore.setCurrentFilterParams(params);
+        this.tableStore.getPaginatedMovieList();
         this.currentPage = page;
+    }
+
+    @action resetPages () {
+        this.currentPage = 1;
+        this.visiblePageSelections = DEFAULT_PAGES;
     }
 
     @action.bound setNextPage () {
@@ -81,5 +87,16 @@ export class PaginationStore {
 
     @action popPageOnDecremention () {
         this.visiblePageSelections.pop();
+    }
+
+    @action.bound setMoviesPerPage (event) {
+        const {
+            target: { value },
+        } = event;
+
+        this.moviesPerPage = value;
+        this.resetPages();
+        this.tableStore.setCurrentFilterParams({ limit: value, page: 1 });
+        this.tableStore.resetMovieListAndGetMovies();
     }
 }

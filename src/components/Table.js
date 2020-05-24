@@ -1,35 +1,87 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { useStore } from '../utils/useStore';
 import styles from './Table.module.scss';
+import SelectedMovieModal from './Table/Misc/SelectedMovieModal';
+import Loader from './Common/Loader';
+import TableHeader from './Table/TableHeader';
+import Row from './Table/Row';
 
 const Table = () => {
-    const { tableStore } = useStore();
-    const { moviesList } = tableStore;
+    const { tableStore, paginationStore } = useStore();
+    const { moviesList, isSelectedMovieModalVisible, selectedMovieData, isLoadingTableData, isInfiniteListEnabled } = tableStore;
 
-    const renderMovieList = () => moviesList.map((movie) =>
-        <tr>
-            <td>{movie.title}</td>
-            <td>{movie.release_date}</td>
-            <td>{movie.imdb_rating}</td>
-            <td>{movie.imdb_votes}</td>
-        </tr>
+    const setSelectedMovieModalVisible = useCallback((value) => () => tableStore.setSelectedMovieModalVisible(value), [tableStore]);
+
+    const handleMovieSelection = useCallback(
+        (movieData) => () => {
+            tableStore.setSelectedMovieData(movieData);
+            tableStore.setSelectedMovieModalVisible(true);
+        },
+        [tableStore],
     );
+
+    const handlePageScroll = (event) => {
+        const {
+            target: { scrollingElement },
+        } = event;
+        const NEAR_BOTTOM_THRESHOLD = 300;
+        const isNearBottom = scrollingElement.scrollHeight - NEAR_BOTTOM_THRESHOLD < scrollingElement.scrollTop + window.innerHeight;
+
+        if (isNearBottom && isInfiniteListEnabled) {
+            paginationStore.setNextPage();
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener('scroll', handlePageScroll);
+
+        return () => window.removeEventListener('scroll', handlePageScroll);
+    });
+
+    const renderRow = (movie) => (
+        <Row
+            imdb_rating={movie.imdb_rating}
+            release_date={movie.release_date}
+            imdb_votes={movie.imdb_votes}
+            handleMovieSelection={handleMovieSelection({
+                title: movie.title,
+                releaseDate: movie.release_date,
+                imdbRating: movie.imdb_rating,
+                imdbVotes: movie.imdb_votes,
+            })}
+            title={movie.title}
+        />
+    );
+
+    const renderPaginatedMovieList = () => tableStore.paginatedMovieList.map((movie) => movie && renderRow(movie));
+
+    const renderInfiniteMovieList = () => moviesList.map((movie) => movie && renderRow(movie));
 
     useEffect(() => {
         tableStore.getPaginatedMovieList();
     }, [tableStore]);
 
+    console.log(tableStore.paginatedMovieList);
     return (
-        <table className={styles.table}>
-            <tr>
-                <th>Title</th>
-                <th>Release date</th>
-                <th>IMDB rating</th>
-                <th>IMDB votes</th>
-            </tr>
-            {renderMovieList()}
-        </table>
+        <>
+            <div className={styles.tableContainer}>
+                <table className={styles.table} cellSpacing='0' cellPadding='0'>
+                    <TableHeader tableStore={tableStore} />
+                    <tbody>{!isInfiniteListEnabled ? renderPaginatedMovieList() : renderInfiniteMovieList()}</tbody>
+                </table>
+                {isLoadingTableData && <Loader className={styles.spinnerPositionDefault} />}
+            </div>
+            {isSelectedMovieModalVisible && (
+                <SelectedMovieModal
+                    imdbRating={selectedMovieData.imdbRating}
+                    imdbVotes={selectedMovieData.imdbVotes}
+                    title={selectedMovieData.title}
+                    releaseData={selectedMovieData.releaseDate}
+                    onModalClose={setSelectedMovieModalVisible(false)}
+                />
+            )}
+        </>
     );
 };
 

@@ -1,12 +1,15 @@
+@import "../../variables";
+
 .wrapper {
   width: 100%;
-  background-color: #ffffff;
-  box-shadow: 0 1px 2px 0 #c9ced1;
-  border-radius: 4px;
+  background-color: $secondary-color;
   position: fixed;
   bottom: 0;
   left: 0;
   height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 h1 {
@@ -14,8 +17,6 @@ h1 {
   font-weight: bold;
   margin-bottom: 20px;
 }
-
-/* ------------------------------ PAGINTION BEGIN ------------------------------ */
 
 .pager {
   font-size: 0;
@@ -29,7 +30,7 @@ h1 {
   font-weight: bold;
   margin: 0 2px;
 
-  &.active .pagerLink{
+  &.active .pagerLink {
     background-color: #ffb74d;
     border-color: #ffb74d;
     color: #fff;
@@ -37,20 +38,24 @@ h1 {
   }
 }
 
-.pagerPrevIcon svg {
+.pagerIcon {
+  content: "";
+  background: url("../../assets/icon-pager.svg") center center no-repeat;
   width: 8px;
   height: 12px;
+  display: inline-block;
+}
+
+.pagerPrevIcon {
+  a:before {
+    @extend .pagerIcon;
+  }
 }
 
 .pagerNextIcon {
-  svg {
-    width: 8px;
-    height: 12px;
-  }
-
-  .pagerLink svg {
+  a:before {
+    @extend .pagerIcon;
     transform: rotate(180deg);
-    transform-origin: center center;
   }
 }
 
@@ -63,40 +68,31 @@ h1 {
   height: 2.625rem;
   line-height: 2.625rem;
   margin-left: -1px;
-  color: #2f3640;
+  color: #ffffff;
   text-decoration: none;
   transition: 0.3s;
 
   &:hover {
-    background-color: #ffb74d;
-    border-color: #ffb74d;
+    background-color: $main-hover-color;
+    border-color: $main-hover-color;
     color: #fff;
     text-decoration: none;
   }
 
-  &:hover svg path, &:active svg path {
-    fill: #fff;
-  }
-}
+  @media screen and (max-width: 576px) {
+    .pagerItem {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
 
-.pager .pagerItem {
-  .pagerItem .pager__link, &:hover + .pagerItem .pagerLink{
-    border-left-color: #ffb74d;
-  }
-}
-
-@media screen and (max-width: 576px) {
-  .pagerItem {
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
-
-    &:first-of-type, &:last-of-type, &:nth-of-type(2), &:nth-last-of-type(2), {
-      position: initial;
-      top: initial;
-      left: initial;
+      &:first-of-type,
+      &:last-of-type,
+      &:nth-of-type(2),
+      &:nth-last-of-type(2) {
+        position: initial;
+        top: initial;
+        left: initial;
+      }
     }
   }
 }
-
-/* ------------------------------ PAGINTION END ------------------------------ */
