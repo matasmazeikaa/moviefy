@@ -27,4 +27,9 @@ Data is loaded from my hosted api, repo: https://github.com/MatasMazeika/moviefy
 * react-app-rewired - Enables to edit babel or webpack configs without ejecting create-react-app ( used to enable decorator use)
 * classnames - utility for conditionally joining classNames together
 
+# Improvements:
+
+* Add animations
+* Write tests
+
 # P.S. Movies in the list are doubled for the sole purpose to have 5k+ records
