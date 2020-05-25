@@ -3,6 +3,7 @@
 Movie rating list made by Matas Mažeika \
 React x Mobx \
 Demo can be found here: https://moviefy-mazeika.herokuapp.com/ \
+Data is loaded from my hosted api, repo: https://github.com/MatasMazeika/moviefy-api
 
 # Local setup
 
@@ -26,4 +27,4 @@ Demo can be found here: https://moviefy-mazeika.herokuapp.com/ \
 * react-app-rewired - Enables to edit babel or webpack configs without ejecting create-react-app ( used to enable decorator use)
 * classnames - utility for conditionally joining classNames together
 
-P.S. Movies in the list are doubled for the sole purpose to have 5k+ records
+# P.S. Movies in the list are doubled for the sole purpose to have 5k+ records
