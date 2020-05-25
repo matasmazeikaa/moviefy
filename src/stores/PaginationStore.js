@@ -58,17 +58,25 @@ export class PaginationStore {
 
     @action setPageNumberAndResetVisiblePages (page) {
         this.currentPage = page;
-        this.visiblePageSelections = DEFAULT_PAGES;
+        this.visiblePageSelections = page === 1 ? DEFAULT_PAGES : [page - 1, page, page + 1];
         this.tableStore.setCurrentFilterParams({ page });
     }
 
     @action.bound setNextPage () {
+        if (this.tableStore.isLoadingTableData) {
+            return;
+        }
+
         const nextPage = this.currentPage + 1;
 
         this.setPage(nextPage);
     }
 
     @action.bound setPreviousPage () {
+        if (this.tableStore.isLoadingTableData) {
+            return;
+        }
+
         const previousPage = this.currentPage - 1;
 
         this.setPage(previousPage);

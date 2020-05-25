@@ -41,10 +41,11 @@ export class TableStore {
 
     @computed get lastConsecutivePage () {
         let lastConsecutivePage = null;
+        const sortedPages = this.loadedPages.slice().sort((element, value) => element - value);
 
-        for (let index = 0; index < this.loadedPages.length; index = index + 1) {
-            if (this.loadedPages[index] !== this.loadedPages[index + 1]) {
-                lastConsecutivePage = this.loadedPages[index];
+        for (let index = 0; index < sortedPages.length; index = index + 1) {
+            if (sortedPages[index] + 1 !== sortedPages[index + 1]) {
+                lastConsecutivePage = sortedPages[index];
 
                 break;
             }

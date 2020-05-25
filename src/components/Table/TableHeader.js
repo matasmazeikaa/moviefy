@@ -37,7 +37,7 @@ const TableHeader = ({ tableStore, paginationStore }) => {
                     onClick={handleSort('rotten_tomatoes_rating')}
                     className={filterParams.sort_by === 'rotten_tomatoes_rating' ? styles[filterParams.order] : ''}
                 >
-                    Rottent Tomatoes rating
+                    Rotten Tomatoes rating
                 </th>
                 <th
                     id='imdb_rating'

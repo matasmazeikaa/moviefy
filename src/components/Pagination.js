@@ -10,9 +10,13 @@ const Pagination = ({ paginationStore, tableStore }) => {
 
     const handlePageSet = useCallback(
         (page) => () => {
+            if (tableStore.isLoadingTableData) {
+                return;
+            }
+
             paginationStore.setPage(page);
         },
-        [paginationStore],
+        [paginationStore, tableStore.isLoadingTableData],
     );
 
     const renderPreviousPageSelect = () =>
