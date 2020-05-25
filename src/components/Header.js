@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
-import cx from 'classnames';
 import { observer } from 'mobx-react';
 import styles from './Header.module.scss';
 import moviefyIcon from '../assets/icon-moviefy.svg';
