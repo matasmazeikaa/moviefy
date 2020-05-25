@@ -49,11 +49,13 @@ const Pagination = ({ paginationStore, tableStore }) => {
 
     const renderMoviesPerPageSelect = () => (
         <select onChange={paginationStore.setMoviesPerPage}>
-            <option value='10'>10</option>
             <option value='20'>20</option>
-            <option value='30'>30</option>
+            <option value='40'>40</option>
+            <option value='60'>60</option>
         </select>
     );
+
+    console.log(currentPage);
 
     return (
         !isInfiniteListEnabled && (

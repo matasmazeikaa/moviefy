@@ -35,11 +35,11 @@ const Table = ({ paginationStore, tableStore }) => {
             const NEAR_BOTTOM_THRESHOLD = 300;
             const isNearBottom = scrollingElement.scrollHeight - NEAR_BOTTOM_THRESHOLD < scrollingElement.scrollTop + window.innerHeight;
 
-            if (isNearBottom && isInfiniteListEnabled) {
+            if (isNearBottom && isInfiniteListEnabled && !isLoadingTableData) {
                 paginationStore.setNextPage();
             }
         },
-        [isInfiniteListEnabled, paginationStore],
+        [isInfiniteListEnabled, isLoadingTableData, paginationStore],
     );
 
     const renderRow = (movie, index) => (
@@ -61,7 +61,12 @@ const Table = ({ paginationStore, tableStore }) => {
 
     const renderPaginatedMovieList = () => tableStore.paginatedMovieList.map((movie, index) => movie && renderRow(movie, index));
 
-    const renderInfiniteMovieList = () => moviesList.map((movie, index) => movie && renderRow(movie, index));
+    const renderInfiniteMovieList = () => tableStore.infiniteMovieList.map((movie, index) => movie && renderRow(movie, index));
+
+    // console.log(tableStore.infiniteMovieList);
+
+
+    console.log(tableStore.infiniteMovieList);
 
     useEffect(() => {
         if (isInfiniteListEnabled && tableStore.loadedPages.length === 1) {

@@ -3,7 +3,7 @@ import { getPaginatedMovieList } from '../utils/api-service';
 
 export const DEFAULT_PARAMS = {
     page: 1,
-    limit: 10,
+    limit: 20,
     order: 'asc',
     sort_by: 'title',
 };
@@ -35,6 +35,34 @@ export class TableStore {
         const endIndex = this.filterParams.page * this.filterParams.limit;
 
         return this.moviesList.slice(startIndex, endIndex);
+    }
+
+    @computed get lastConsecutivePage () {
+        let lastConsecutivePage = null;
+
+        for (let index = 0; index < this.loadedPages.length; index++) {
+            if (this.loadedPages[index + 1] === this.loadedPages[index + 1]) {
+                lastConsecutivePage = index + 1;
+
+                break;
+            }
+        }
+
+        return lastConsecutivePage;
+    }
+
+    @computed get infiniteMovieList () {
+        let lastConsecutiveMovie = null;
+
+        for (let index = 0; index < this.moviesList.length; index++) {
+            if (this.moviesList[index + 1] === undefined) {
+                lastConsecutiveMovie = index + 1;
+
+                break;
+            }
+        }
+
+        return this.moviesList.slice(0, lastConsecutiveMovie);
     }
 
     *_getPaginatedMovieList () {

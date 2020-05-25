@@ -11,7 +11,7 @@ const App = () => {
 
     return (
         <div className={styles.rootContainer}>
-            <Header tableStore={tableStore}/>
+            <Header tableStore={tableStore} paginationStore={paginationStore}/>
             <Table tableStore={tableStore} paginationStore={paginationStore}/>
             <Pagination tableStore={tableStore} paginationStore={paginationStore}/>
         </div>

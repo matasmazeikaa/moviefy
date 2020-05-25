@@ -56,6 +56,12 @@ export class PaginationStore {
         this.visiblePageSelections = DEFAULT_PAGES;
     }
 
+    @action setPageNumber (page) {
+        this.currentPage = page;
+        this.visiblePageSelections = DEFAULT_PAGES;
+        this.tableStore.setCurrentFilterParams({ page });
+    }
+
     @action.bound setNextPage () {
         const nextPage = this.currentPage + 1;
 
