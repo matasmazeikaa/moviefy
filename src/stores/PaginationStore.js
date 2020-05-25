@@ -56,9 +56,7 @@ export class PaginationStore {
         this.visiblePageSelections = DEFAULT_PAGES;
     }
 
-    @action setPageNumberAndResetVisiblePages (pageNum) {
-        const page = pageNum ? pageNum : 1;
-
+    @action setPageNumberAndResetVisiblePages (page) {
         this.currentPage = page;
         this.visiblePageSelections = DEFAULT_PAGES;
         this.tableStore.setCurrentFilterParams({ page });

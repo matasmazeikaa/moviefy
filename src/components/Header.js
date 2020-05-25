@@ -20,7 +20,7 @@ const Header = ({ tableStore, paginationStore }) => {
         <div className={styles.headerContainer}>
             <img src={moviefyIcon} alt='Moviefy' />
             <span>Moviefy</span>
-            <label className={cx(styles.checkboxContainer, isInfiniteListEnabled && styles.checkboxContainerFixed)}>
+            <label className={styles.checkboxContainer}>
                 Enable infinite list
                 <input type='checkbox' checked={isInfiniteListEnabled} onChange={handleInfiniteListToggle} />
                 <span className={styles.checkmark} />

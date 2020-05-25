@@ -43,8 +43,8 @@ export class TableStore {
         let lastConsecutivePage = null;
 
         for (let index = 0; index < this.loadedPages.length; index = index + 1) {
-            if (this.loadedPages[index] === this.loadedPages[index + 1]) {
-                lastConsecutivePage = index + 1;
+            if (this.loadedPages[index] !== this.loadedPages[index + 1]) {
+                lastConsecutivePage = this.loadedPages[index];
 
                 break;
             }
