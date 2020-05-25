@@ -63,16 +63,7 @@ const Table = ({ paginationStore, tableStore }) => {
 
     const renderInfiniteMovieList = () => tableStore.infiniteMovieList.map((movie, index) => movie && renderRow(movie, index));
 
-    // console.log(tableStore.infiniteMovieList);
-
-
-    console.log(tableStore.infiniteMovieList);
-
     useEffect(() => {
-        if (isInfiniteListEnabled && tableStore.loadedPages.length === 1) {
-            paginationStore.setNextPage();
-        }
-
         window.addEventListener('scroll', handlePageScroll);
 
         return () => window.removeEventListener('scroll', handlePageScroll);
@@ -98,6 +89,7 @@ const Table = ({ paginationStore, tableStore }) => {
                     title={selectedMovieData.title}
                     rottenTomatoesRating={selectedMovieData.rottenTomatoesRating}
                     onModalClose={setSelectedMovieModalVisible(false)}
+                    isSelectedMovieModalVisible={isSelectedMovieModalVisible}
                 />
             )}
         </>

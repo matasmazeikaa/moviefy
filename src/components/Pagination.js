@@ -55,8 +55,6 @@ const Pagination = ({ paginationStore, tableStore }) => {
         </select>
     );
 
-    console.log(currentPage);
-
     return (
         !isInfiniteListEnabled && (
             <div className={styles.wrapper}>

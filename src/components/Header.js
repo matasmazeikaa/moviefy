@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
 import { observer } from 'mobx-react';
 import styles from './Header.module.scss';
 import moviefyIcon from '../assets/icon-moviefy.svg';
@@ -19,7 +20,7 @@ const Header = ({ tableStore, paginationStore }) => {
         <div className={styles.headerContainer}>
             <img src={moviefyIcon} alt='Moviefy' />
             <span>Moviefy</span>
-            <label className={styles.checkboxContainer}>
+            <label className={cx(styles.checkboxContainer, isInfiniteListEnabled && styles.checkboxContainerFixed)}>
                 Enable infinite list
                 <input type='checkbox' checked={isInfiniteListEnabled} onChange={handleInfiniteListToggle} />
                 <span className={styles.checkmark} />
