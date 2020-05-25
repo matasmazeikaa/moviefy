@@ -1,16 +1,18 @@
 import { action, computed, flow, observable } from 'mobx';
 import { getPaginatedMovieList } from '../utils/api-service';
 
+const DIRECTION_ASCENDING = 'asc';
+const DIRECTION_DESCENDING = 'desc';
+
 export const DEFAULT_PARAMS = {
     page: 1,
     limit: 20,
-    order: 'asc',
+    order: DIRECTION_ASCENDING,
     sort_by: 'title',
 };
 
 export class TableStore {
     @observable moviesList = [];
-    @observable paginatedMoveList = [];
     @observable allMoviesCount = 0;
     @observable selectedMovieData = {
         title: '',
@@ -103,13 +105,13 @@ export class TableStore {
     }
 
     @action changeOrderDirection () {
-        this.filterParams.order = this.filterParams.order === 'asc' ? 'desc' : 'asc';
+        this.filterParams.order = this.filterParams.order === DIRECTION_ASCENDING ? DIRECTION_DESCENDING : DIRECTION_ASCENDING;
         this.resetMovieListAndGetMovies();
     }
 
     @action changeSortBy (sortBy) {
         this.filterParams.sort_by = sortBy;
-        this.filterParams.order = 'asc';
+        this.filterParams.order = DIRECTION_ASCENDING;
         this.resetMovieListAndGetMovies();
     }
 

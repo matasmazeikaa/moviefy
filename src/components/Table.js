@@ -49,12 +49,15 @@ const Table = ({ paginationStore, tableStore }) => {
             imdb_rating={movie.imdb_rating}
             rotten_tomatoes_rating={movie.rotten_tomatoes_rating}
             imdb_votes={movie.imdb_votes}
-            handleMovieSelection={handleMovieSelection({
-                title: movie.title,
-                rottenTomatoesRating: movie.rotten_tomatoes_rating,
-                imdbRating: movie.imdb_rating,
-                imdbVotes: movie.imdb_votes,
-            }, index)}
+            handleMovieSelection={handleMovieSelection(
+                {
+                    title: movie.title,
+                    rottenTomatoesRating: movie.rotten_tomatoes_rating,
+                    imdbRating: movie.imdb_rating,
+                    imdbVotes: movie.imdb_votes,
+                },
+                index,
+            )}
             title={movie.title}
             isLastClicked={lastClickedRowIndex === index}
         />

@@ -32,18 +32,14 @@ const Pagination = ({ paginationStore, tableStore }) => {
     const renderGoToLastPageButton = () =>
         currentPage < paginationStore.totalPages - 1 && (
             <li className={styles.pagerItem} onClick={handlePageSet(paginationStore.totalPages)}>
-                <div className={styles.pagerLink} >
-                    ...
-                </div>
+                <div className={styles.pagerLink}>...</div>
             </li>
         );
 
     const renderGoToFirstPageButton = () =>
         currentPage > 2 && (
             <li className={styles.pagerItem} onClick={handlePageSet(1)}>
-                <div className={styles.pagerLink} href='#'>
-                    ...
-                </div>
+                <div className={styles.pagerLink}>...</div>
             </li>
         );
 
@@ -90,6 +86,6 @@ const Pagination = ({ paginationStore, tableStore }) => {
 Pagination.propTypes = {
     tableStore: PropTypes.object.isRequired,
     paginationStore: PropTypes.object.isRequired,
-}
+};
 
 export default observer(Pagination);

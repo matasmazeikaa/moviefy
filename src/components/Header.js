@@ -10,7 +10,7 @@ const Header = ({ tableStore, paginationStore }) => {
 
     const handleInfiniteListToggle = useCallback(() => {
         if (!isInfiniteListEnabled) {
-            paginationStore.setPageNumber(tableStore.lastConsecutivePage);
+            paginationStore.setPageNumberAndResetVisiblePages(tableStore.lastConsecutivePage);
         }
 
         tableStore.toggleInfiniteList();
