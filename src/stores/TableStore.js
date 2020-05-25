@@ -40,8 +40,8 @@ export class TableStore {
     @computed get lastConsecutivePage () {
         let lastConsecutivePage = null;
 
-        for (let index = 0; index < this.loadedPages.length; index++) {
-            if (this.loadedPages[index + 1] === this.loadedPages[index + 1]) {
+        for (let index = 0; index < this.loadedPages.length; index = index + 1) {
+            if (this.loadedPages[index] === this.loadedPages[index + 1]) {
                 lastConsecutivePage = index + 1;
 
                 break;
@@ -54,7 +54,7 @@ export class TableStore {
     @computed get infiniteMovieList () {
         let lastConsecutiveMovie = null;
 
-        for (let index = 0; index < this.moviesList.length; index++) {
+        for (let index = 0; index < this.moviesList.length; index = index + 1) {
             if (this.moviesList[index + 1] === undefined) {
                 lastConsecutiveMovie = index + 1;
 
@@ -70,6 +70,7 @@ export class TableStore {
             return;
         }
 
+        this.setTableError(null);
         this.setLoadingTableData(true);
 
         try {
@@ -80,13 +81,10 @@ export class TableStore {
                 this.isFirstLoad = false;
             }
 
-            console.log(data);
             this.loadedPages.push(this.filterParams.page);
             this.setAllMoviesCount(data.count);
             this.setMoviesList(data.list);
         } catch (error) {
-            console.log(error.response.data);
-            console.log(error);
             this.setTableError(error.response.data.message);
         } finally {
             this.setLoadingTableData(false);

@@ -6,11 +6,10 @@ import TableHeader from './Table/TableHeader';
 import Row from './Table/Row';
 import Loader from './Common/Loader';
 import styles from './Table.module.scss';
-import ErrorMessage from "./Common/ErrorMessage";
+import ErrorMessage from './Common/ErrorMessage';
 
 const Table = ({ paginationStore, tableStore }) => {
     const {
-        moviesList,
         isSelectedMovieModalVisible,
         selectedMovieData,
         isLoadingTableData,
@@ -75,7 +74,6 @@ const Table = ({ paginationStore, tableStore }) => {
         tableStore.getPaginatedMovieList();
     }, [tableStore]);
 
-    console.log(tableError);
     return (
         <>
             <div className={styles.tableContainer}>

@@ -23,6 +23,7 @@
   font-size: 1.125rem;
   font-weight: bold;
   margin: 0 2px;
+  cursor: pointer;
 
   &.active .pagerLink {
     background-color: #ffb74d;
@@ -41,13 +42,13 @@
 }
 
 .pagerPrevIcon {
-  a:before {
+  div:before {
     @extend .pagerIcon;
   }
 }
 
 .pagerNextIcon {
-  a:before {
+  div:before {
     @extend .pagerIcon;
     transform: rotate(180deg);
   }

@@ -18,32 +18,32 @@ const Pagination = ({ paginationStore, tableStore }) => {
     const renderPreviousPageSelect = () =>
         currentPage > 1 && (
             <li className={cx(styles.pagerItem, styles.pagerPrevIcon)} onClick={paginationStore.setPreviousPage}>
-                <a className={styles.pagerLink} href='#' />
+                <div className={styles.pagerLink} />
             </li>
         );
 
     const renderNextPageButton = () =>
         currentPage !== paginationStore.totalPages && (
             <li className={cx(styles.pagerItem, styles.pagerNextIcon)} onClick={paginationStore.setNextPage}>
-                <a className={styles.pagerLink} href='#' />
+                <div className={styles.pagerLink} />
             </li>
         );
 
     const renderGoToLastPageButton = () =>
         currentPage < paginationStore.totalPages - 1 && (
             <li className={styles.pagerItem} onClick={handlePageSet(paginationStore.totalPages)}>
-                <a className={styles.pagerLink} href='#'>
+                <div className={styles.pagerLink} >
                     ...
-                </a>
+                </div>
             </li>
         );
 
     const renderGoToFirstPageButton = () =>
         currentPage > 2 && (
             <li className={styles.pagerItem} onClick={handlePageSet(1)}>
-                <a className={styles.pagerLink} href='#'>
+                <div className={styles.pagerLink} href='#'>
                     ...
-                </a>
+                </div>
             </li>
         );
 
@@ -71,9 +71,9 @@ const Pagination = ({ paginationStore, tableStore }) => {
                                 value={page}
                                 id={page}
                             >
-                                <a className={styles.pagerLink} href='#' id={page}>
+                                <div className={styles.pagerLink} href='#' id={page}>
                                     {page}
-                                </a>
+                                </div>
                             </li>
                         ))}
 
