@@ -6,6 +6,7 @@ import TableHeader from './Table/TableHeader';
 import Row from './Table/Row';
 import Loader from './Common/Loader';
 import styles from './Table.module.scss';
+import ErrorMessage from "./Common/ErrorMessage";
 
 const Table = ({ paginationStore, tableStore }) => {
     const {
@@ -15,6 +16,7 @@ const Table = ({ paginationStore, tableStore }) => {
         isLoadingTableData,
         isInfiniteListEnabled,
         lastClickedRowIndex,
+        tableError,
     } = tableStore;
 
     const setSelectedMovieModalVisible = useCallback((value) => () => tableStore.setSelectedMovieModalVisible(value), [tableStore]);
@@ -73,6 +75,7 @@ const Table = ({ paginationStore, tableStore }) => {
         tableStore.getPaginatedMovieList();
     }, [tableStore]);
 
+    console.log(tableError);
     return (
         <>
             <div className={styles.tableContainer}>
@@ -80,6 +83,7 @@ const Table = ({ paginationStore, tableStore }) => {
                     <TableHeader tableStore={tableStore} paginationStore={paginationStore} />
                     <tbody>{!isInfiniteListEnabled ? renderPaginatedMovieList() : renderInfiniteMovieList()}</tbody>
                 </table>
+                {tableError && <ErrorMessage errorMessage={tableError} />}
                 {isLoadingTableData && <Loader />}
             </div>
             {isSelectedMovieModalVisible && (

@@ -80,11 +80,14 @@ export class TableStore {
                 this.isFirstLoad = false;
             }
 
+            console.log(data);
             this.loadedPages.push(this.filterParams.page);
             this.setAllMoviesCount(data.count);
             this.setMoviesList(data.list);
         } catch (error) {
-            this.setTableError(error.data);
+            console.log(error.response.data);
+            console.log(error);
+            this.setTableError(error.response.data.message);
         } finally {
             this.setLoadingTableData(false);
         }
